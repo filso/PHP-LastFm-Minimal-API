@@ -71,8 +71,13 @@ class LastFMException extends Exception {
     }
 
 }
+<<<<<<< HEAD
     
 class LastFMInvalidSessionException extends LastFMException {
+=======
+
+class LastFMInvalidSessionException extends LastFMApiException {
+>>>>>>> 18af2f22d5d3651d4f43b6e003b2a898681e56b6
 
     public function __construct($result) {
         parent::__construct($result);
