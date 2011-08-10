@@ -1,15 +1,14 @@
 <?php
 
 /*
- * I wrote that, because all code that I found seemed bloated
- * and not very useful.
- * This is minimal library - it implements all the necessary
+ * This is minimal PHP library - it implements all the necessary
  * stuff, and ONLY that.
  * 
- * Implemented here are:
+ * Implemented:
  * - authentication flow
  * - api calls wrapper
- */
+ * - error wrapper
+ */ 
 
 if (!function_exists('curl_init')) {
     throw new Exception('LastFM needs the CURL PHP extension.');
@@ -23,7 +22,7 @@ if (!function_exists('json_decode')) {
  *
  * @author Filip Sobczak <f@digitalinvaders.pl>
  */
-class LastFMApiException extends Exception {
+class LastFMException extends Exception {
 
     /**
      * The result from the API server that represents the exception information.
@@ -72,8 +71,8 @@ class LastFMApiException extends Exception {
     }
 
 }
-
-class LastFMApiInvalidSessionException extends LastFMApiException {
+    
+class LastFMInvalidSessionException extends LastFMException {
 
     public function __construct($result) {
         parent::__construct($result);
