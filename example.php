@@ -6,8 +6,8 @@
  */
 require_once('lib/LastFM.php');
 $lastfm = new LastFM(
-                array('api_key' => "f71898d5abc901fd03bc52a0840a915e",
-                    'api_secret' => "41a7f4945de3f6df57866f323ade70ff")
+                array('api_key' => "xxxxx",
+                    'api_secret' => "xxxxx")
 );
 if (isset($_GET['token'])) {
     // we just got authorization token from lastfm site,
