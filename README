@@ -1,0 +1,9 @@
+This is PHP Last.FM minimal api access library. Implemented are authentication
+flow, basic data fetching mechanism, and error handling.
+
+Library is meant to be simple, leaving all abstraction for programmer,
+and being as transparent, as possible.
+
+example.php shows, how to use it.
+
+I'm sorry for my fluent english, I'm ashamed. ;D

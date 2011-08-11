@@ -239,11 +239,9 @@ class LastFM {
     }
 
     /**
-     *
-     * 
      * @param type $token 32-char ASCII MD5 hash, gained by granting permissions
      */
-    public function fetchSessionKey($token = '') {
+    public function fetchSession($token = '') {
         if (!$token) {
             if (isset($_GET['token']))
                 $token = $_GET['token'];
@@ -251,9 +249,11 @@ class LastFM {
         $result = $this->api('auth.getSession', array('token' => $token));
         //print_r($result);
         //print_r($result); print_r($result['session']['key']); exit;
+        $name = $result['session']['name'];
         $sessionKey = $result['session']['key'];
         $this->setSessionKey($sessionKey);
-        return $sessionKey;
+        
+        return array('name' => $name, 'sk' => $sessionKey);
     }
 
     /**
@@ -281,7 +281,7 @@ class LastFM {
                 $params['sk'] = $this->getSessionKey();
             }
             if (!$params['sk']) {
-                throw new LastFMApiException(array("message" => "No session key provided"));
+                throw new LastFMException(array("message" => "No session key provided"));
             }
         } else {
             if (isset($params['sk']))
@@ -300,9 +300,9 @@ class LastFM {
                 // Invalid session key - Please re-authenticate
                 // this is different so that when user invalidates
                 // session the situation can be handled easily
-                throw new LastFMApiInvalidSessionException($result);
+                throw new LastFMInvalidSessionException($result);
             } else
-                throw new LastFMApiException($result);
+                throw new LastFMException($result);
         }
         return $result;
     }
@@ -325,7 +325,7 @@ class LastFM {
         $result = curl_exec($ch);
 
         if ($result === false) {
-            $e = new LastFMApiException(array(
+            $e = new LastFMException(array(
                         'error' => curl_errno($ch),
                         'message' => curl_error($ch),
                     ));
