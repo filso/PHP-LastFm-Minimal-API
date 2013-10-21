@@ -4,11 +4,11 @@
  * http://digitalinvaders.pl/lastfmapi
  * The api_secret and api_key below have been replaced
  */
-require_once('lib/LastFM.php');
-$lastfm = new LastFM(
-                array('api_key' => "xxxxx",
-                    'api_secret' => "xxxxx")
-);
+require_once('LastFM.php');
+$lastfm = new LastFM('api-key', 'api-secret');
+// uncomment this if you need api result as array
+//$lastfm->setReturnAssoc();
+
 if (isset($_GET['token'])) {
     // we just got authorization token from lastfm site,
     // so we fetch session key
@@ -63,13 +63,16 @@ if (isset($_GET['sk'])) {
             <? endif; ?>
             <input type="submit" value="Fetch info"/>
         </form>
-        
+
         <? if (isset($_GET['method'])) {
             $params = $_GET;
             unset($params['method']);
             unset($params['sk']);
             $response = $lastfm->api($_GET['method'], $params);
-            
+            // or you can call api like this $lastfm->package_method($params);
+            // just replace dot with underscore
+            //$lastfm->track_getInfo($params);
+
             echo "LastFM server response:";
             echo "<pre><code>";
             print_r($response);
